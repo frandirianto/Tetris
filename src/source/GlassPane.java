@@ -21,17 +21,17 @@ public class GlassPane extends JComponent {
 	public GlassPane() {
 
 		try {
-			border = ImageIO.read(GlassPane.class.getResource("/border.png"));
+			border = ImageIO.read(GlassPane.class.getResource("../Sprites/border.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			nexts = ImageIO.read(GlassPane.class.getResource("/nextText.png"));
+			nexts = ImageIO.read(GlassPane.class.getResource("../Sprites/nextText.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			hold = ImageIO.read(GlassPane.class.getResource("/holdText.png"));
+			hold = ImageIO.read(GlassPane.class.getResource("../Sprites/holdText.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

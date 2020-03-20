@@ -57,46 +57,46 @@ public class HowToPlayPanel extends JPanel {
 	public HowToPlayPanel() {
 		setLayout(null);
 		try {
-			icon = ImageIO.read(Board.class.getResource("/icon.png"));
+			icon = ImageIO.read(Board.class.getResource("../Sprites/icon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			icon1 = ImageIO.read(Board.class.getResource("/icon1.png"));
+			icon1 = ImageIO.read(Board.class.getResource("../Sprites/icon1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			shift = ImageIO.read(Board.class.getResource("/shift.png"));
+			shift = ImageIO.read(Board.class.getResource("../Sprites/shift.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			space = ImageIO.read(Board.class.getResource("/space.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			up = ImageIO.read(Board.class.getResource("/up.png"));
+			space = ImageIO.read(Board.class.getResource("../Sprites/space.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			down = ImageIO.read(Board.class.getResource("/down.png"));
+			up = ImageIO.read(Board.class.getResource("../Sprites/up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			left = ImageIO.read(Board.class.getResource("/left.png"));
+			down = ImageIO.read(Board.class.getResource("../Sprites/down.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			right = ImageIO.read(Board.class.getResource("/right.png"));
+			left = ImageIO.read(Board.class.getResource("../Sprites/left.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			right = ImageIO.read(Board.class.getResource("../Sprites/right.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

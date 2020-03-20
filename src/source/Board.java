@@ -37,8 +37,8 @@ public class Board extends JPanel implements KeyListener {
 
 	private final Piece piece[] = new Piece[7];
 	private CurrentPiece currentPiece; // current piece being positioned/played
-	private NextPiece nextPiece;
-	private HoldPiece holdPiece = null;
+	private Piece nextPiece;
+	private Piece holdPiece = null;
 	private Timer timer;
 
 	private final int FPS = 60;
@@ -193,7 +193,7 @@ public class Board extends JPanel implements KeyListener {
 			nextIDX = Helper.randomNum(0, 6);
 		} while (nextIDX == curIDX);
 
-		nextPiece = new NextPiece(piece[nextIDX].getBlock(), piece[nextIDX].getCoords(), this,
+		nextPiece = new Piece(piece[nextIDX].getBlock(), piece[nextIDX].getCoords(), this,
 				piece[nextIDX].getColor());
 
 	}
@@ -207,7 +207,7 @@ public class Board extends JPanel implements KeyListener {
 			else {
 				int temp = holdIDX;
 				holdIDX = curIDX;
-				holdPiece = new HoldPiece(piece[holdIDX].getBlock(), piece[holdIDX].getCoords(), this,
+				holdPiece = new Piece(piece[holdIDX].getBlock(), piece[holdIDX].getCoords(), this,
 						piece[holdIDX].getColor());
 
 				if (shiftPieceAvail) {
