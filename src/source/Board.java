@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener {
-	private BufferedImage blocks;
-	private BufferedImage bg;
-	private BufferedImage frame2;
+	private BufferedImage blocksImage;
+	private BufferedImage backgroundImage;
+	private BufferedImage frameImage;
+	private BufferedImage gameOverImage;
 	
-	private BufferedImage gO;
 	private int score = 0;
 	private String scoreString = "0";
 	private final int indentY = 25 * 2;
@@ -48,60 +48,47 @@ public class Board extends JPanel implements KeyListener {
 	private boolean shifted = false; 
 
 	public Board() {
-		setBackground(Color.getHSBColor(0.53358333f, 0.5697f, 0.9569f));
-
-		try {
-			bg = ImageIO.read(Board.class.getResource("../Sprites/totoro.png"));
-			gO = ImageIO.read(Board.class.getResource("../Sprites/game_over.jpg"));
-			frame2 = ImageIO.read(Board.class.getResource("../Sprites/totoroFrames.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		setBackground(Helper.backgroundColor);
+		backgroundImage = Helper.getImage("../Sprites/totoro.png");
+		gameOverImage = Helper.getImage("../Sprites/game_over.jpg");
+		frameImage = Helper.getImage("../Sprites/totoroFrames.png");
+		
 		for (int row = 0; row < 4; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				board[row][col] = 0;
 			}
 		}
-		try {
-			blocks = ImageIO.read(Board.class.getResource("../Sprites/tetris_blocks_21.png")); 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		blocksImage = Helper.getImage("../Sprites/tetris_blocks_21.png"); 
 		timer = new Timer(delay, new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				update();
 				repaint();
 			}
 		});
-
 		timer.start();
-
 		pieces();
 	}
 
 	private void pieces(){
-		piece[0] = new Piece(blocks.getSubimage(0, 0, BLOCKSIZE, BLOCKSIZE), new int[][] { { 1, 1, 1, 1 } }, this, 1); 
+		piece[0] = new Piece(blocksImage.getSubimage(0, 0, BLOCKSIZE, BLOCKSIZE), new int[][] { { 1, 1, 1, 1 } }, this, 1); 
 
-		piece[1] = new Piece(blocks.getSubimage(1 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+		piece[1] = new Piece(blocksImage.getSubimage(1 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 				new int[][] { { 1, 1, 0 }, { 0, 1, 1 } }, this, 2); 
 
-		piece[2] = new Piece(blocks.getSubimage(2 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+		piece[2] = new Piece(blocksImage.getSubimage(2 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 				new int[][] { { 0, 1, 1 }, { 1, 1, 0 } }, this, 3); 
 
-		piece[3] = new Piece(blocks.getSubimage(3 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+		piece[3] = new Piece(blocksImage.getSubimage(3 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 				new int[][] { { 1, 0, 0 }, { 1, 1, 1 } }, this, 4); 
 
-		piece[4] = new Piece(blocks.getSubimage(4 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+		piece[4] = new Piece(blocksImage.getSubimage(4 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 				new int[][] { { 0, 0, 1 }, { 1, 1, 1 } }, this, 5); 
 
-		piece[5] = new Piece(blocks.getSubimage(5 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+		piece[5] = new Piece(blocksImage.getSubimage(5 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 				new int[][] { { 0, 1, 0 }, { 1, 1, 1 } }, this, 6); 
 
-		piece[6] = new Piece(blocks.getSubimage(6 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+		piece[6] = new Piece(blocksImage.getSubimage(6 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 				new int[][] { { 1, 1 }, { 1, 1 } }, this, 7); 
 
 		curIDX = Helper.randomNum(0, 6);
@@ -121,7 +108,7 @@ public class Board extends JPanel implements KeyListener {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-			g.drawImage(bg, 40, 320, null);
+			g.drawImage(backgroundImage, 40, 320, null);
 		g.setColor(Color.getHSBColor((float) 0.472, (float) 0.5, (float) 0.76));
 			g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(indentX, indentY + 4 * BLOCKSIZE, GRIDWIDTH * BLOCKSIZE, (GRIDHEIGHT - 4) * BLOCKSIZE);
@@ -129,13 +116,13 @@ public class Board extends JPanel implements KeyListener {
 		for (int row = 0; row < board.length; row++)
 			for (int col = 0; col < board[0].length; col++)
 				if (board[row][col] != 0)
-					g.drawImage(blocks.getSubimage((board[row][col] - 1) * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
+					g.drawImage(blocksImage.getSubimage((board[row][col] - 1) * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 							col * BLOCKSIZE + indentX, row * BLOCKSIZE + indentY, null);
 
 		nextPiece.render(g);
 		if (holdPiece != null && (shiftPieceAvail || playerShifted))
 			holdPiece.render(g);
-		g.drawImage(frame2, 390, 65, null);
+		g.drawImage(frameImage, 390, 65, null);
 
 		g.setFont(new Font("Agent Red", Font.BOLD, 20));
 		g.setColor(Color.BLACK);
@@ -154,7 +141,7 @@ public class Board extends JPanel implements KeyListener {
 		}
 
 		
-		if (gameOver) g.drawImage(gO, 10, 150, 280, 500, null);
+		if (gameOver) g.drawImage(gameOverImage, 10, 150, 280, 500, null);
 	}
 
 	public void getNextPiece() {

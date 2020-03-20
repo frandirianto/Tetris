@@ -30,18 +30,18 @@ public class MainMenuPanel extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
-		setBackground(Color.getHSBColor(h, s, b));
 		super.paint(g);
+		setBackground(Helper.backgroundColor);
 		g.drawImage(img, 40, 320, null);
 		g.drawImage(cube, 250, 30, 130, 130, null);
 	}
 
 	public MainMenuPanel() {
-		setLayout(null);
-		init();
+		initLayout();
 	}
 
-	private void init(){
+	private void initLayout(){
+		setLayout(null);
 		readImage();
 		add(setLabel("Play",label));
 		add(setLabel("How to Play",label));
@@ -50,23 +50,12 @@ public class MainMenuPanel extends JPanel {
 	}
 	
 	private void readImage(){
-		try {
-			img = ImageIO.read(Board.class.getResource("../Sprites/totoro.png"));
-			cube = ImageIO.read(Board.class.getResource("../Sprites/cube.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		img = Helper.getImage("../Sprites/totoro.png");
+		cube = Helper.getImage("../Sprites/cube.png");
 	}
 	
 	private JLabel setLabel(String text, JLabel label){
-		label = new JLabel(text, JLabel.CENTER);
-		if(text.equals("Play")) label.setBounds(60, 170, 500, 50);
-		else if(text.equals("How to Play")) label.setBounds(60, 213, 500, 50);
-		else if(text.equals("Exit")) label.setBounds(60, 250, 500, 50);
-		
-		label.setFont(new Font("Orange Kid", Font.BOLD, 36));
-		label.setForeground(Color.BLACK);
-		final JLabel labelx = label;
+		final JLabel labelx = Helper.initLabel(text, label);
 		labelx.addMouseListener(new MouseListener() {
 
 			@Override
@@ -91,18 +80,28 @@ public class MainMenuPanel extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(text.equals("Play")){
-					MainMenuFrame.window.remove(MainMenuPanel.this);
-					new WindowFrame();
-				}else if((text.equals("How to Play"))){
-					MainMenuFrame.window.remove(MainMenuPanel.this);
-					new HowToPlayFrame();
-				}else if(text.equals("Exit")){
-					System.exit(9);
-				}
+				menu(text);
 			}
 		});
 		return labelx;
+	}
+	
+	private void menu(String text){
+		if(text.equals("Play")){
+			MainMenuFrame.window.remove(MainMenuPanel.this);
+			Board board = new Board();
+			MainMenuFrame.window.add(board);
+			MainMenuFrame.window.setGlassPane(new GlassPane());
+			MainMenuFrame.window.getGlassPane().setVisible(true);
+			MainMenuFrame.window.addKeyListener(board);
+			MainMenuFrame.window.setVisible(true);
+		}else if((text.equals("How to Play"))){
+			MainMenuFrame.window.remove(MainMenuPanel.this);
+			MainMenuFrame.window.add(new HowToPlayPanel());
+			MainMenuFrame.window.setVisible(true);
+		}else if(text.equals("Exit")){
+			System.exit(9);
+		}
 	}
 	
 	private void setSound(){
