@@ -22,7 +22,7 @@ public class CurrentPiece extends Piece {
 	}
 	
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, String name) {
 		render(this, g);
 	}
 
@@ -38,8 +38,8 @@ public class CurrentPiece extends Piece {
 	}
 	
 	private void getCoordinate(){
-		cX = board.getIndentX() + (board.getGRIDWIDTH() / 2 - (coords[0].length / 2)) * Board.BLOCKSIZE;
-		cY = board.getIndentY() + 4 * Board.BLOCKSIZE - coords.length * Board.BLOCKSIZE;
+		cX = board.grid.getIndentX() + (board.grid.getGRIDWIDTH() / 2 - (coords[0].length / 2)) * Grid.BLOCKSIZE;
+		cY = board.grid.getIndentY() + 4 * Grid.BLOCKSIZE - coords.length * Grid.BLOCKSIZE;
 	}
 	
 	
@@ -66,19 +66,19 @@ public class CurrentPiece extends Piece {
 			for (int row = 0; row < coords.length; row++)
 				for (int col = 0; col < coords[row].length; col++)
 					if (coords[row][col] != 0)
-						board.getBoard()[((cY - board.getIndentY()) / Board.BLOCKSIZE)
-								+ row][((cX - board.getIndentX()) / Board.BLOCKSIZE) + col] = color;
+						board.grid.getBoard()[((cY - board.grid.getIndentY()) / Grid.BLOCKSIZE)
+								+ row][((cX - board.grid.getIndentX()) / Grid.BLOCKSIZE) + col] = color;
 			checkLine();
 			board.getPiece();
 		}
 
 		
-		if (cY + Board.BLOCKSIZE + (coords.length * Board.BLOCKSIZE) <= board.getBorderY()) {
+		if (cY + Grid.BLOCKSIZE + (coords.length * Grid.BLOCKSIZE) <= board.grid.getBorderY()) {
 			for (int row = 0; row < coords.length; row++)
 				for (int col = 0; col < coords[row].length; col++)
 					if (coords[row][col] != 0) {
-						if (board.getBoard()[((cY - board.getIndentY()) / Board.BLOCKSIZE) + row
-								+ 1][((cX - board.getIndentX()) / Board.BLOCKSIZE) + col] != 0) {
+						if (board.grid.getBoard()[((cY - board.grid.getIndentY()) / Grid.BLOCKSIZE) + row
+								+ 1][((cX - board.grid.getIndentX()) / Grid.BLOCKSIZE) + col] != 0) {
 							collisionY = true;
 							if (spacePressed)
 								cY -= 1;
@@ -86,7 +86,7 @@ public class CurrentPiece extends Piece {
 					}
 			if (spacePressed) currentSpeed = 1;
 			if (time > currentSpeed) {
-				cY += Board.BLOCKSIZE;
+				cY += Grid.BLOCKSIZE;
 				time = 0;
 			}
 		} else {
@@ -95,13 +95,13 @@ public class CurrentPiece extends Piece {
 	}
 
 	private void checkCollisionX(){
-		if (cX + dX >= board.getIndentX() && cX + dX + coords[0].length * Board.BLOCKSIZE <= board.getBorderX()) {
+		if (cX + dX >= board.grid.getIndentX() && cX + dX + coords[0].length * Grid.BLOCKSIZE <= board.grid.getBorderX()) {
 			for (int row = 0; row < coords.length; row++)
 				for (int col = 0; col < coords[row].length; col++)
 					if (coords[row][col] != 0) {
-						if (board.getBoard()[((cY - board.getIndentY()) / Board.BLOCKSIZE)
-								+ row][((cX - board.getIndentX()) / Board.BLOCKSIZE) + col
-										+ (dX / Board.BLOCKSIZE)] != 0)
+						if (board.grid.getBoard()[((cY - board.grid.getIndentY()) / Grid.BLOCKSIZE)
+								+ row][((cX - board.grid.getIndentX()) / Grid.BLOCKSIZE) + col
+										+ (dX / Grid.BLOCKSIZE)] != 0)
 							collisionX = true;
 					}
 			if (!collisionX)
@@ -115,18 +115,18 @@ public class CurrentPiece extends Piece {
 		rotatedMatrix = getTranspose(coords);
 		rotatedMatrix = getReverseMatrix(rotatedMatrix);
 
-		if (cX < board.getIndentX() || cX + (rotatedMatrix[0].length * Board.BLOCKSIZE) > board.getBorderX()
-				|| cY + (rotatedMatrix.length * Board.BLOCKSIZE) < board.getIndentY()
-				|| cY + (rotatedMatrix.length * Board.BLOCKSIZE) > board.getBorderY()) {
+		if (cX < board.grid.getIndentX() || cX + (rotatedMatrix[0].length * Grid.BLOCKSIZE) > board.grid.getBorderX()
+				|| cY + (rotatedMatrix.length * Grid.BLOCKSIZE) < board.grid.getIndentY()
+				|| cY + (rotatedMatrix.length * Grid.BLOCKSIZE) > board.grid.getBorderY()) {
 			
-			while (cX + (rotatedMatrix[0].length * Board.BLOCKSIZE) > board.getBorderX()) cX -= Board.BLOCKSIZE;
+			while (cX + (rotatedMatrix[0].length * Grid.BLOCKSIZE) > board.grid.getBorderX()) cX -= Grid.BLOCKSIZE;
 		}
 
 		for (int row = 0; row < rotatedMatrix.length; row++)
 			for (int col = 0; col < rotatedMatrix[row].length; col++)
 				if (rotatedMatrix[row][col] != 0) {
-					if (board.getBoard()[((cY - board.getIndentY()) / Board.BLOCKSIZE) + row
-							+ 1][((cX - board.getIndentX()) / Board.BLOCKSIZE) + col] != 0) {
+					if (board.grid.getBoard()[((cY - board.grid.getIndentY()) / Grid.BLOCKSIZE) + row
+							+ 1][((cX - board.grid.getIndentX()) / Grid.BLOCKSIZE) + col] != 0) {
 						return;
 					}
 				}
@@ -160,15 +160,15 @@ public class CurrentPiece extends Piece {
 
 	private void checkLine() {
 		int temp = 0;
-		int height = board.getBoard().length - 1;
+		int height = board.grid.getBoard().length - 1;
 		
 		for (int i = height; i > 0; i--) {
 			int count = 0;
-			for (int j = 0; j < board.getBoard()[0].length; j++) {
-				if (board.getBoard()[i][j] != 0) count++;
-				board.getBoard()[height][j] = board.getBoard()[i][j];
+			for (int j = 0; j < board.grid.getBoard()[0].length; j++) {
+				if (board.grid.getBoard()[i][j] != 0) count++;
+				board.grid.getBoard()[height][j] = board.grid.getBoard()[i][j];
 			}
-			if (count < board.getBoard()[0].length) {
+			if (count < board.grid.getBoard()[0].length) {
 				height--;
 				temp++;
 			}

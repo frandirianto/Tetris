@@ -20,17 +20,33 @@ public class Piece {
 		this.color = color;
 	}
 
-	protected void render(Graphics g){
-		for (int y = 0; y < coords.length; y++) {
-			for (int x = 0; x < coords[y].length; x++) {
-				if (coords[y][x] != 0 && coords[0].length != 4 && coords[0].length != 2)
-					g.drawImage(block, x * Board.BLOCKSIZE + 425, y * Board.BLOCKSIZE + 2 * board.getIndentY() - 5,
-							null);
-				else if (coords[y][x] != 0 && coords[0].length == 4)
-					g.drawImage(block, x * Board.BLOCKSIZE + 415, y * Board.BLOCKSIZE + 2 * board.getIndentY(), null);
-				else if (coords[y][x] != 0)
-					g.drawImage(block, x * Board.BLOCKSIZE + 440, y * Board.BLOCKSIZE + 2 * board.getIndentY() - 5,
-							null);
+	protected void render(Graphics g, String name){
+		if(name.equals("Next")){
+			for (int y = 0; y < coords.length; y++) {
+				for (int x = 0; x < coords[y].length; x++) {
+					if (coords[y][x] != 0 && coords[0].length != 4 && coords[0].length != 2)
+						g.drawImage(block, x * Grid.BLOCKSIZE + 425, y * Grid.BLOCKSIZE + 2 * board.grid.getIndentY() - 5,
+								null);
+					else if (coords[y][x] != 0 && coords[0].length == 4)
+						g.drawImage(block, x * Grid.BLOCKSIZE + 415, y * Grid.BLOCKSIZE + 2 * board.grid.getIndentY(), null);
+					else if (coords[y][x] != 0)
+						g.drawImage(block, x * Grid.BLOCKSIZE + 440, y * Grid.BLOCKSIZE + 2 * board.grid.getIndentY() - 5,
+								null);
+				}
+			}
+		}
+		else if (name.equals("Hold")){
+			for (int y = 0; y < coords.length; y++) {
+				for (int x = 0; x < coords[y].length; x++) {
+					if (coords[y][x] != 0 && coords[0].length != 4 && coords[0].length != 2)
+						g.drawImage(block, x * Grid.BLOCKSIZE + 425, y * Grid.BLOCKSIZE + 4 * board.grid.getIndentY() - 5,
+								null);
+					else if (coords[y][x] != 0 && coords[0].length == 4)
+						g.drawImage(block, x * Grid.BLOCKSIZE + 415, y * Grid.BLOCKSIZE + 4 * board.grid.getIndentY(), null);
+					else if (coords[y][x] != 0)
+						g.drawImage(block, x * Grid.BLOCKSIZE + 440, y * Grid.BLOCKSIZE + 4 * board.grid.getIndentY() - 5,
+								null);
+				}
 			}
 		}
 	}
@@ -39,7 +55,7 @@ public class Piece {
 		for (int y = 0; y < coords.length; y++) {
 			for (int x = 0; x < coords[y].length; x++) {
 				if (coords[y][x] != 0)
-					g.drawImage(block, x * Board.BLOCKSIZE + cX, y * Board.BLOCKSIZE + cY, null);
+					g.drawImage(block, x * Grid.BLOCKSIZE + cX-1, y * Grid.BLOCKSIZE + cY, null);
 
 			}
 		}
