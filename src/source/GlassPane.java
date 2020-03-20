@@ -19,18 +19,9 @@ public class GlassPane extends JComponent {
 	private Board board;
 
 	public GlassPane() {
-
 		try {
 			border = ImageIO.read(GlassPane.class.getResource("../Sprites/border.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			nexts = ImageIO.read(GlassPane.class.getResource("../Sprites/nextText.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			hold = ImageIO.read(GlassPane.class.getResource("../Sprites/holdText.png"));
 		} catch (IOException e) {
 			e.printStackTrace();

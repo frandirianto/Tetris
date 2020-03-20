@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -20,11 +19,10 @@ import javax.swing.JPanel;
 
 public class MainMenuPanel extends JPanel {
 	JLabel title, upTitle, upUpTitle;
-	JLabel play, exit, howToPlay;
+	JLabel label;
 	BufferedImage cube;
 	BufferedImage img;
 	static Clip clip;
-	private String highscore = "0";
 	private int currHighscore = 0;
 	private int newHighscore = 0;
 
@@ -42,152 +40,89 @@ public class MainMenuPanel extends JPanel {
 
 	public MainMenuPanel() {
 		setLayout(null);
+		init();
+	}
 
+	private void init(){
+		readImage();
+		add(setLabel("Play",label));
+		add(setLabel("How to Play",label));
+		add(setLabel("Exit",label));
+		setSound();
+	}
+	
+	private void readImage(){
 		try {
 			img = ImageIO.read(Board.class.getResource("../Sprites/totoro.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			cube = ImageIO.read(Board.class.getResource("../Sprites/cube.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// title = new JLabel("TETRIS 2019", JLabel.CENTER);
-		// title.setBounds(50, 0, 500, 50);
-		// title.setFont(new Font("Helvetica", Font.BOLD, 36));
-		// title.setForeground(Color.BLUE);
-		// add(title);
-
-		play = new JLabel("Play", JLabel.CENTER);
-		play.setBounds(60, 170, 500, 50);
-		play.setFont(new Font("Orange Kid", Font.BOLD, 36));
-		play.setForeground(Color.BLACK);
-		play.addMouseListener(new MouseListener() {
+	}
+	
+	private JLabel setLabel(String text, JLabel label){
+		label = new JLabel(text, JLabel.CENTER);
+		if(text.equals("Play")) label.setBounds(60, 170, 500, 50);
+		else if(text.equals("How to Play")) label.setBounds(60, 213, 500, 50);
+		else if(text.equals("Exit")) label.setBounds(60, 250, 500, 50);
+		
+		label.setFont(new Font("Orange Kid", Font.BOLD, 36));
+		label.setForeground(Color.BLACK);
+		final JLabel labelx = label;
+		labelx.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				play.setForeground(Color.BLACK);
-
+				labelx.setForeground(Color.BLACK);
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				play.setForeground(Color.YELLOW);
-
+				labelx.setForeground(Color.YELLOW);
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MainMenuFrame.window.remove(MainMenuPanel.this);
-				new WindowFrame();
+				if(text.equals("Play")){
+					MainMenuFrame.window.remove(MainMenuPanel.this);
+					new WindowFrame();
+				}else if((text.equals("How to Play"))){
+					MainMenuFrame.window.remove(MainMenuPanel.this);
+					new HowToPlayFrame();
+				}else if(text.equals("Exit")){
+					System.exit(9);
+				}
 			}
 		});
-		add(play);
-
-		howToPlay = new JLabel("How To Play", JLabel.CENTER);
-		howToPlay.setBounds(60, 213, 500, 50);
-		howToPlay.setFont(new Font("Orange Kid", Font.BOLD, 36));
-		howToPlay.setForeground(Color.BLACK);
-		howToPlay.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				howToPlay.setForeground(Color.BLACK);
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				howToPlay.setForeground(Color.YELLOW);
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				MainMenuFrame.window.remove(MainMenuPanel.this);
-				new HowToPlayFrame();
-			}
-		});
-		add(howToPlay);
-
-		exit = new JLabel("Exit", JLabel.CENTER);
-		exit.setBounds(60, 250, 500, 50);
-		exit.setFont(new Font("Orange Kid", Font.BOLD, 36));
-		exit.setForeground(Color.BLACK);
-		exit.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				exit.setForeground(Color.BLACK);
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				exit.setForeground(Color.YELLOW);
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-
-			}
-		});
-		add(exit);
-
-		// masukkin sound
+		return labelx;
+	}
+	
+	private void setSound(){
 		try {
 			clip = AudioSystem.getClip();
 			AudioInputStream stream = AudioSystem.getAudioInputStream(Board.class.getResource("../Sprites/bg.wav"));
 			clip.open(stream);
 			clip.start();
-		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e1) {
-			e1.printStackTrace();
+		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
 		}
 	}
-
-	public void setHighscore(int score) {
+	
+	private void setHighscore(int score) {
 		newHighscore = score;
 		if (newHighscore > currHighscore) {
 			currHighscore = newHighscore;
-			highscore = "" + currHighscore;
+			String highscore = "" + currHighscore;
 		}
 	}
 }

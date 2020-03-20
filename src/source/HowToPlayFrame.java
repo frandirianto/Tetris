@@ -3,6 +3,7 @@ package source;
 import javax.swing.JFrame;
 
 public class HowToPlayFrame {
+	
 	public static JFrame window;
 	public static final int HEIGHT = 720, WIDTH = 640;
 
@@ -13,7 +14,6 @@ public class HowToPlayFrame {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
-
 		window.add(new HowToPlayPanel());
 		window.setVisible(true);
 	}

@@ -33,6 +33,13 @@ public class CurrentPiece extends Piece {
 		if (board.isShiftPressed()) {
 			board.getPiece();
 		}
+		checkCollisionX();
+		checkCollisionY();
+		dX = 0;
+		collisionX = false;
+	}
+
+	private void checkCollisionY(){
 		if (collisionY) {
 			if (time > currentSpeed) {
 				time = 0;
@@ -46,18 +53,7 @@ public class CurrentPiece extends Piece {
 			board.getPiece();
 		}
 
-		if (cX + dX >= board.getIndentX() && cX + dX + coords[0].length * Board.BLOCKSIZE <= board.getBorderX()) {
-			for (int row = 0; row < coords.length; row++)
-				for (int col = 0; col < coords[row].length; col++)
-					if (coords[row][col] != 0) {
-						if (board.getBoard()[((cY - board.getIndentY()) / Board.BLOCKSIZE)
-								+ row][((cX - board.getIndentX()) / Board.BLOCKSIZE) + col
-										+ (dX / Board.BLOCKSIZE)] != 0)
-							collisionX = true;
-					}
-			if (!collisionX)
-				cX += dX;
-		}
+		
 		if (cY + Board.BLOCKSIZE + (coords.length * Board.BLOCKSIZE) <= board.getBorderY()) {
 			for (int row = 0; row < coords.length; row++)
 				for (int col = 0; col < coords[row].length; col++)
@@ -78,10 +74,22 @@ public class CurrentPiece extends Piece {
 		} else {
 			collisionY = true;
 		}
-		dX = 0;
-		collisionX = false;
 	}
 
+	private void checkCollisionX(){
+		if (cX + dX >= board.getIndentX() && cX + dX + coords[0].length * Board.BLOCKSIZE <= board.getBorderX()) {
+			for (int row = 0; row < coords.length; row++)
+				for (int col = 0; col < coords[row].length; col++)
+					if (coords[row][col] != 0) {
+						if (board.getBoard()[((cY - board.getIndentY()) / Board.BLOCKSIZE)
+								+ row][((cX - board.getIndentX()) / Board.BLOCKSIZE) + col
+										+ (dX / Board.BLOCKSIZE)] != 0)
+							collisionX = true;
+					}
+			if (!collisionX)
+				cX += dX;
+		}
+	}
 	// System.out.println(cX + " " + cY);
 
 	public void rotate() {
