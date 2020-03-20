@@ -23,8 +23,6 @@ public class MainMenuPanel extends JPanel {
 	BufferedImage cube;
 	BufferedImage img;
 	static Clip clip;
-	private int currHighscore = 0;
-	private int newHighscore = 0;
 
 	private float h = (float) 0.53358333;
 	private float s = (float) 0.5697;
@@ -115,14 +113,6 @@ public class MainMenuPanel extends JPanel {
 			clip.start();
 		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	private void setHighscore(int score) {
-		newHighscore = score;
-		if (newHighscore > currHighscore) {
-			currHighscore = newHighscore;
-			String highscore = "" + currHighscore;
 		}
 	}
 }

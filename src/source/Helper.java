@@ -1,5 +1,6 @@
 package source;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,5 +12,5 @@ public class Helper {
 	public static int randomNum(int min, int max) {
 		return rand.nextInt(max - min + 1) + min;
 	}
-
+	
 }

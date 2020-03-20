@@ -15,8 +15,6 @@ public class GlassPane extends JComponent {
 	private BufferedImage border;
 	private BufferedImage nexts;
 	private BufferedImage hold;
-	private JLabel next;
-	private Board board;
 
 	public GlassPane() {
 		try {

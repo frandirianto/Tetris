@@ -254,7 +254,6 @@ public class HowToPlayPanel extends JPanel {
 		lbl_right.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -277,7 +276,6 @@ public class HowToPlayPanel extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -290,7 +288,6 @@ public class HowToPlayPanel extends JPanel {
 		lbl_shift.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -313,7 +310,6 @@ public class HowToPlayPanel extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -326,7 +322,6 @@ public class HowToPlayPanel extends JPanel {
 		lbl_space2.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -349,7 +344,6 @@ public class HowToPlayPanel extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -362,7 +356,6 @@ public class HowToPlayPanel extends JPanel {
 		lbl_space.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -385,7 +378,6 @@ public class HowToPlayPanel extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -398,7 +390,6 @@ public class HowToPlayPanel extends JPanel {
 		back.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -425,7 +416,6 @@ public class HowToPlayPanel extends JPanel {
 			}
 		});
 		add(back);
-
 	}
 
 }

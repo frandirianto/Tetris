@@ -6,7 +6,6 @@ public class MainMenuFrame{
 	
 	public static final int HEIGHT = 720, WIDTH = 640;
 	public static JFrame window;
-	private Board board;
 
 	public MainMenuFrame() {
 		window = new JFrame();

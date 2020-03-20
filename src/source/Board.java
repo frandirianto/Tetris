@@ -28,8 +28,7 @@ public class Board extends JPanel implements KeyListener {
 
 	private final int borderX = 25 * 10 + indentX;
 	public static final int BLOCKSIZE = 25;
-	private final int GRIDHEIGHT = 24, GRIDWIDTH = 10;
-
+	private static final int GRIDHEIGHT = 24, GRIDWIDTH = 10;
 	private int[][] board = new int[GRIDHEIGHT][GRIDWIDTH];
 	private int curIDX;
 	private int holdIDX = 7;
@@ -41,7 +40,6 @@ public class Board extends JPanel implements KeyListener {
 	private Piece holdPiece = null;
 	private Timer timer;
 
-	private final int FPS = 60;
 	private final int delay = 1000 / 60;
 	private boolean gameOver = false;
 	private boolean shiftPressed = false; 
@@ -49,25 +47,12 @@ public class Board extends JPanel implements KeyListener {
 	private boolean playerShifted = false; 
 	private boolean shifted = false; 
 
-	private float h = (float) 0.53358333;
-	private float s = (float) 0.5697;
-	private float b = (float) 0.9569;
-
 	public Board() {
-		setBackground(Color.getHSBColor(h, s, b));
+		setBackground(Color.getHSBColor(0.53358333f, 0.5697f, 0.9569f));
+
 		try {
 			bg = ImageIO.read(Board.class.getResource("../Sprites/totoro.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			gO = ImageIO.read(Board.class.getResource("../Sprites/game_over.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			frame2 = ImageIO.read(Board.class.getResource("../Sprites/totoroFrames.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,7 +64,7 @@ public class Board extends JPanel implements KeyListener {
 			}
 		}
 		try {
-			blocks = ImageIO.read(Board.class.getResource("../Sprites/tetris_blocks_21.png")); // masukkin gambar
+			blocks = ImageIO.read(Board.class.getResource("../Sprites/tetris_blocks_21.png")); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -95,26 +80,29 @@ public class Board extends JPanel implements KeyListener {
 
 		timer.start();
 
-		piece[0] = new Piece(blocks.getSubimage(0, 0, BLOCKSIZE, BLOCKSIZE), new int[][] { { 1, 1, 1, 1 } }, this, 1); // the
-																														// stick
+		pieces();
+	}
+
+	private void pieces(){
+		piece[0] = new Piece(blocks.getSubimage(0, 0, BLOCKSIZE, BLOCKSIZE), new int[][] { { 1, 1, 1, 1 } }, this, 1); 
 
 		piece[1] = new Piece(blocks.getSubimage(1 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
-				new int[][] { { 1, 1, 0 }, { 0, 1, 1 } }, this, 2); // the dog (left)
+				new int[][] { { 1, 1, 0 }, { 0, 1, 1 } }, this, 2); 
 
 		piece[2] = new Piece(blocks.getSubimage(2 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
-				new int[][] { { 0, 1, 1 }, { 1, 1, 0 } }, this, 3); // the dog (right)
+				new int[][] { { 0, 1, 1 }, { 1, 1, 0 } }, this, 3); 
 
 		piece[3] = new Piece(blocks.getSubimage(3 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
-				new int[][] { { 1, 0, 0 }, { 1, 1, 1 } }, this, 4); // the L (left)
+				new int[][] { { 1, 0, 0 }, { 1, 1, 1 } }, this, 4); 
 
 		piece[4] = new Piece(blocks.getSubimage(4 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
-				new int[][] { { 0, 0, 1 }, { 1, 1, 1 } }, this, 5); // the L (right)
+				new int[][] { { 0, 0, 1 }, { 1, 1, 1 } }, this, 5); 
 
 		piece[5] = new Piece(blocks.getSubimage(5 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
-				new int[][] { { 0, 1, 0 }, { 1, 1, 1 } }, this, 6); // the T
+				new int[][] { { 0, 1, 0 }, { 1, 1, 1 } }, this, 6); 
 
 		piece[6] = new Piece(blocks.getSubimage(6 * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
-				new int[][] { { 1, 1 }, { 1, 1 } }, this, 7); // the Square
+				new int[][] { { 1, 1 }, { 1, 1 } }, this, 7); 
 
 		curIDX = Helper.randomNum(0, 6);
 		currentPiece = new CurrentPiece(piece[curIDX].getBlock(), piece[curIDX].getCoords().clone(), this,
@@ -122,7 +110,7 @@ public class Board extends JPanel implements KeyListener {
 		
 		getNextPiece();
 	}
-
+	
 	public void update() {
 		if (gameOver) {
 			timer.stop();
