@@ -18,7 +18,6 @@ public class Piece {
 		this.coords = coords;
 		this.board = board;
 		this.color = color;
-
 	}
 
 	protected void render(Graphics g){

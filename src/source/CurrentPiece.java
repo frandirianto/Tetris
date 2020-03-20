@@ -5,26 +5,44 @@ import java.awt.image.BufferedImage;
 
 public class CurrentPiece extends Piece {
 
-	private int normalSpeed = 1000, speedDown = 100, currentSpeed;
-	private long time, lastTime;
-
-	private boolean collisionY = false, collisionX = false, spacePressed = false;
+	private int normalSpeed;
+	private int speedDown;
+	private int currentSpeed;
+	private long time;
+	private long lastTime;
+	private boolean collisionY;
+	private boolean collisionX;
+	private boolean spacePressed;
 
 	public CurrentPiece(BufferedImage block, int[][] coords, Board board, int color) {
 		super(block, coords, board, color);
-		currentSpeed = normalSpeed;
-		time = 0;
-		lastTime = System.currentTimeMillis();
-
-		cX = board.getIndentX() + (board.getGRIDWIDTH() / 2 - (coords[0].length / 2)) * Board.BLOCKSIZE;
-		cY = board.getIndentY() + 4 * Board.BLOCKSIZE - coords.length * Board.BLOCKSIZE;
+		getSpeed();
+		getTime();
+		getCoordinate();
 	}
-
+	
 	@Override
 	public void render(Graphics g) {
 		render(this, g);
 	}
 
+	private void getSpeed(){
+		currentSpeed = normalSpeed = 1000;
+		speedDown = normalSpeed/10;
+		collisionY = collisionX = spacePressed = false;
+	}
+	
+	private void getTime(){
+		time = 0;
+		lastTime = System.currentTimeMillis();
+	}
+	
+	private void getCoordinate(){
+		cX = board.getIndentX() + (board.getGRIDWIDTH() / 2 - (coords[0].length / 2)) * Board.BLOCKSIZE;
+		cY = board.getIndentY() + 4 * Board.BLOCKSIZE - coords.length * Board.BLOCKSIZE;
+	}
+	
+	
 	public void update() {
 		time += System.currentTimeMillis() - lastTime;
 		lastTime = System.currentTimeMillis();
@@ -32,8 +50,10 @@ public class CurrentPiece extends Piece {
 		if (board.isShiftPressed()) {
 			board.getPiece();
 		}
+		
 		checkCollisionX();
 		checkCollisionY();
+		
 		dX = 0;
 		collisionX = false;
 	}
@@ -160,6 +180,7 @@ public class CurrentPiece extends Piece {
 		board.setScore((23 - temp));
 		System.out.println("Score : " + board.getScore() + " " + temp);
 	}
+	
 
 	public void normalSpeed() {
 		currentSpeed = normalSpeed;

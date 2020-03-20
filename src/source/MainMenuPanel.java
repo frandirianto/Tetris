@@ -18,26 +18,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MainMenuPanel extends JPanel {
-	JLabel title, upTitle, upUpTitle;
-	JLabel label;
-	BufferedImage cube;
-	BufferedImage img;
-	static Clip clip;
+	
+	private JLabel label;
+	private BufferedImage cube;
+	private BufferedImage img;
+	public static Clip clip;
 
-	private float h = (float) 0.53358333;
-	private float s = (float) 0.5697;
-	private float b = (float) 0.9569;
-
+	public MainMenuPanel() {
+		initLayout();
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		setBackground(Helper.backgroundColor);
 		g.drawImage(img, 40, 320, null);
 		g.drawImage(cube, 250, 30, 130, 130, null);
-	}
-
-	public MainMenuPanel() {
-		initLayout();
 	}
 
 	private void initLayout(){
@@ -54,12 +50,21 @@ public class MainMenuPanel extends JPanel {
 		cube = Helper.getImage("../Sprites/cube.png");
 	}
 	
-	private JLabel setLabel(String text, JLabel label){
-		final JLabel labelx = Helper.initLabel(text, label);
+	public JLabel setLabel(String text, JLabel label){
+		final JLabel labelx = Label.init(text, label, "Menu");
 		labelx.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
 
 			@Override
-			public void mouseReleased(MouseEvent arg0) {
+			public void mouseEntered(MouseEvent arg0) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
 				
 			}
 
@@ -69,39 +74,37 @@ public class MainMenuPanel extends JPanel {
 			}
 
 			@Override
-			public void mouseExited(MouseEvent arg0) {
-				labelx.setForeground(Color.BLACK);
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				labelx.setForeground(Color.YELLOW);
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				menu(text);
 			}
 		});
 		return labelx;
 	}
 	
-	private void menu(String text){
+	public void menu(String text){
 		if(text.equals("Play")){
-			MainMenuFrame.window.remove(MainMenuPanel.this);
-			Board board = new Board();
-			MainMenuFrame.window.add(board);
-			MainMenuFrame.window.setGlassPane(new GlassPane());
-			MainMenuFrame.window.getGlassPane().setVisible(true);
-			MainMenuFrame.window.addKeyListener(board);
-			MainMenuFrame.window.setVisible(true);
+			play();
 		}else if((text.equals("How to Play"))){
-			MainMenuFrame.window.remove(MainMenuPanel.this);
-			MainMenuFrame.window.add(new HowToPlayPanel());
-			MainMenuFrame.window.setVisible(true);
+			howToPlay();
 		}else if(text.equals("Exit")){
 			System.exit(9);
 		}
+	}
+	
+	private void play(){
+		MainMenuFrame.window.remove(MainMenuPanel.this);
+		Board board = new Board();
+		MainMenuFrame.window.add(board);
+		MainMenuFrame.window.setGlassPane(new GlassPane());
+		MainMenuFrame.window.getGlassPane().setVisible(true);
+		MainMenuFrame.window.addKeyListener(board);
+		MainMenuFrame.window.setVisible(true);
+	}
+	
+	private void howToPlay(){
+		MainMenuFrame.window.remove(MainMenuPanel.this);
+		MainMenuFrame.window.add(new HowToPlayPanel());
+		MainMenuFrame.window.setVisible(true);
 	}
 	
 	private void setSound(){

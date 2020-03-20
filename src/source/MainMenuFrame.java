@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class MainMenuFrame{
 	
-	public static final int HEIGHT = 720, WIDTH = 640;
+	private static final int HEIGHT = 720, WIDTH = 640;
 	public static JFrame window;
 
 	public MainMenuFrame() {
