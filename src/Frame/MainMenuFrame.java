@@ -1,6 +1,8 @@
-package source;
+package Frame;
 
 import javax.swing.JFrame;
+
+import Panel.MainMenuPanel;
 
 public class MainMenuFrame{
 	

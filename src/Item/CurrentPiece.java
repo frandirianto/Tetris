@@ -1,4 +1,4 @@
-package source;
+package Item;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -84,8 +84,7 @@ public class CurrentPiece extends Piece {
 								cY -= 1;
 						}
 					}
-			if (spacePressed)
-				currentSpeed = 1;
+			if (spacePressed) currentSpeed = 1;
 			if (time > currentSpeed) {
 				cY += Board.BLOCKSIZE;
 				time = 0;
@@ -119,9 +118,8 @@ public class CurrentPiece extends Piece {
 		if (cX < board.getIndentX() || cX + (rotatedMatrix[0].length * Board.BLOCKSIZE) > board.getBorderX()
 				|| cY + (rotatedMatrix.length * Board.BLOCKSIZE) < board.getIndentY()
 				|| cY + (rotatedMatrix.length * Board.BLOCKSIZE) > board.getBorderY()) {
-			while (cX + (rotatedMatrix[0].length * Board.BLOCKSIZE) > board.getBorderX())
-				cX -= Board.BLOCKSIZE;
-
+			
+			while (cX + (rotatedMatrix[0].length * Board.BLOCKSIZE) > board.getBorderX()) cX -= Board.BLOCKSIZE;
 		}
 
 		for (int row = 0; row < rotatedMatrix.length; row++)
@@ -144,8 +142,8 @@ public class CurrentPiece extends Piece {
 				newMatrix[j][i] = matrix[i][j];
 			}
 		}
+		
 		return newMatrix;
-
 	}
 
 	private int[][] getReverseMatrix(int[][] matrix) {
@@ -156,20 +154,18 @@ public class CurrentPiece extends Piece {
 			matrix[i] = matrix[matrix.length - i - 1];
 			matrix[matrix.length - i - 1] = m;
 		}
+		
 		return matrix;
-
 	}
 
 	private void checkLine() {
 		int temp = 0;
 		int height = board.getBoard().length - 1;
+		
 		for (int i = height; i > 0; i--) {
 			int count = 0;
 			for (int j = 0; j < board.getBoard()[0].length; j++) {
-				if (board.getBoard()[i][j] != 0) {
-					count++;
-				}
-
+				if (board.getBoard()[i][j] != 0) count++;
 				board.getBoard()[height][j] = board.getBoard()[i][j];
 			}
 			if (count < board.getBoard()[0].length) {
@@ -177,8 +173,8 @@ public class CurrentPiece extends Piece {
 				temp++;
 			}
 		}
+	
 		board.setScore((23 - temp));
-		System.out.println("Score : " + board.getScore() + " " + temp);
 	}
 	
 

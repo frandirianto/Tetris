@@ -1,4 +1,4 @@
-package source;
+package Helper;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
+
+import Item.Board;
 
 public class Helper {
 

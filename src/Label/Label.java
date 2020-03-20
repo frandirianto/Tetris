@@ -1,4 +1,4 @@
-package source;
+package Label;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,6 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
+
+import Frame.MainMenuFrame;
+import Panel.HowToPlayPanel;
+import Panel.MainMenuPanel;
 
 public class Label  {
 

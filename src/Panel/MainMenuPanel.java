@@ -1,4 +1,4 @@
-package source;
+package Panel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +16,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Frame.MainMenuFrame;
+import Helper.Helper;
+import Item.Board;
+import Item.GlassPane;
+import Label.Label;
 
 public class MainMenuPanel extends JPanel {
 	

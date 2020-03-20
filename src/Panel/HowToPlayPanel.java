@@ -1,4 +1,4 @@
-package source;
+package Panel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Helper.Helper;
+import Label.Label;
 
 public class HowToPlayPanel extends JPanel {
 
