@@ -56,20 +56,20 @@ public class Board extends JPanel implements KeyListener {
 	public Board() {
 		setBackground(Color.getHSBColor(h, s, b));
 		try {
-			bg = ImageIO.read(Board.class.getResource("/totoro.png"));
+			bg = ImageIO.read(Board.class.getResource("../Sprites/totoro.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		// new gameOver
 		try {
-			gO = ImageIO.read(Board.class.getResource("/game_over.jpg"));
+			gO = ImageIO.read(Board.class.getResource("../Sprites/game_over.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			frame2 = ImageIO.read(Board.class.getResource("/totoroFrames.png"));
+			frame2 = ImageIO.read(Board.class.getResource("../Sprites/totoroFrames.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +80,7 @@ public class Board extends JPanel implements KeyListener {
 			}
 		}
 		try {
-			blocks = ImageIO.read(Board.class.getResource("/tetris_blocks_21.png")); // masukkin gambar
+			blocks = ImageIO.read(Board.class.getResource("../Sprites/tetris_blocks_21.png")); // masukkin gambar
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
