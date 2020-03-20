@@ -19,15 +19,6 @@ public class ButtonPanel extends JButton implements ActionListener {
 	private BufferedImage icon;
 
 	public ButtonPanel() {
-		// ini layoutnya
-		// gimanac aranya supaya bisa ketengah ga ya
-		
-		// setLayout(null);
-		
-
-		// setLocation(500, 200);
-		
-		// btnHelp.setSize(100, 100);
 		init();
 
 	}

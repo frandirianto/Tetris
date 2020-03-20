@@ -18,7 +18,7 @@ public class Board extends JPanel implements KeyListener {
 	private BufferedImage blocks;
 	private BufferedImage bg;
 	private BufferedImage frame2;
-	// gameover new
+	
 	private BufferedImage gO;
 	private int score = 0;
 	private String scoreString = "0";
@@ -36,7 +36,7 @@ public class Board extends JPanel implements KeyListener {
 	private int nextIDX;
 
 	private final Piece piece[] = new Piece[7];
-	private CurrentPiece currentPiece; // current piece being positioned/played
+	private CurrentPiece currentPiece; 
 	private Piece nextPiece;
 	private Piece holdPiece = null;
 	private Timer timer;
@@ -44,10 +44,10 @@ public class Board extends JPanel implements KeyListener {
 	private final int FPS = 60;
 	private final int delay = 1000 / 60;
 	private boolean gameOver = false;
-	private boolean shiftPressed = false; // apakah shift di tekan
-	private boolean shiftPieceAvail = false; // cek apakah ada untuk diganti, ini baru ada setelah pertama shift
-	private boolean playerShifted = false; // ck apakah selama main, shift udah pernah dipencet
-	private boolean shifted = false; // cuman boleh sekali shift per piece
+	private boolean shiftPressed = false; 
+	private boolean shiftPieceAvail = false; 
+	private boolean playerShifted = false; 
+	private boolean shifted = false; 
 
 	private float h = (float) 0.53358333;
 	private float s = (float) 0.5697;
@@ -61,7 +61,6 @@ public class Board extends JPanel implements KeyListener {
 			e.printStackTrace();
 		}
 
-		// new gameOver
 		try {
 			gO = ImageIO.read(Board.class.getResource("../Sprites/game_over.jpg"));
 		} catch (IOException e) {
@@ -96,7 +95,6 @@ public class Board extends JPanel implements KeyListener {
 
 		timer.start();
 
-		// shapes of tetris block piece , crop subImage
 		piece[0] = new Piece(blocks.getSubimage(0, 0, BLOCKSIZE, BLOCKSIZE), new int[][] { { 1, 1, 1, 1 } }, this, 1); // the
 																														// stick
 
@@ -120,10 +118,9 @@ public class Board extends JPanel implements KeyListener {
 
 		curIDX = Helper.randomNum(0, 6);
 		currentPiece = new CurrentPiece(piece[curIDX].getBlock(), piece[curIDX].getCoords().clone(), this,
-				piece[curIDX].getColor()); // coba
-
+				piece[curIDX].getColor()); 
+		
 		getNextPiece();
-		// getPiece();
 	}
 
 	public void update() {
@@ -136,56 +133,40 @@ public class Board extends JPanel implements KeyListener {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		// g.drawImage(blocks, 0, 0, null); //ini tes doang
-		// bg image
-		g.drawImage(bg, 40, 320, null);
+			g.drawImage(bg, 40, 320, null);
 		g.setColor(Color.getHSBColor((float) 0.472, (float) 0.5, (float) 0.76));
-		// g.fillRect(405, 70, 125, 188);
-		g.setColor(new Color(255, 255, 255, 100));
+			g.setColor(new Color(255, 255, 255, 100));
 		g.fillRect(indentX, indentY + 4 * BLOCKSIZE, GRIDWIDTH * BLOCKSIZE, (GRIDHEIGHT - 4) * BLOCKSIZE);
-		// masukkin piece
 		currentPiece.render(g);
-		// buat gambar piece kalau udah di placed
 		for (int row = 0; row < board.length; row++)
 			for (int col = 0; col < board[0].length; col++)
 				if (board[row][col] != 0)
 					g.drawImage(blocks.getSubimage((board[row][col] - 1) * BLOCKSIZE, 0, BLOCKSIZE, BLOCKSIZE),
 							col * BLOCKSIZE + indentX, row * BLOCKSIZE + indentY, null);
 
-		// gambar nextPiece
 		nextPiece.render(g);
-		// gambar holdPiece
 		if (holdPiece != null && (shiftPieceAvail || playerShifted))
 			holdPiece.render(g);
-
-		// piece frame
 		g.drawImage(frame2, 390, 65, null);
 
-		// score
 		g.setFont(new Font("Agent Red", Font.BOLD, 20));
 		g.setColor(Color.BLACK);
 		g.drawString("LINES CLEARED: " + scoreString, 50, 40);
 
-		// bikin grid blocks
-		// horizontal
+	
 		g.setColor(Color.DARK_GRAY);
 		for (int i = 0; i <= GRIDHEIGHT - 4; i++) {
 			g.drawLine(indentX, i * BLOCKSIZE + (indentY + (BLOCKSIZE * 4)), GRIDWIDTH * BLOCKSIZE + BLOCKSIZE,
 					i * BLOCKSIZE + (indentY + (BLOCKSIZE * 4)));
 		}
-		// vertical
+	
 		for (int i = 0; i <= GRIDWIDTH; i++) {
 			g.drawLine(i * BLOCKSIZE + BLOCKSIZE, (indentY + (BLOCKSIZE * 4)), i * BLOCKSIZE + BLOCKSIZE,
 					(GRIDHEIGHT - 4) * BLOCKSIZE + (indentY + (BLOCKSIZE * 4)));
 		}
 
-		// new gameover image
-		if (gameOver) {
-			// x,y,lebar,tinggi
-
-			g.drawImage(gO, 10, 150, 280, 500, null);
-
-		}
+		
+		if (gameOver) g.drawImage(gO, 10, 150, 280, 500, null);
 	}
 
 	public void getNextPiece() {
@@ -286,7 +267,6 @@ public class Board extends JPanel implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -333,7 +313,6 @@ public class Board extends JPanel implements KeyListener {
 	public void setScore(int score) {
 		this.score += score;
 		scoreString = "" + this.score;
-		// System.out.println(scoreString);
 	}
 
 }

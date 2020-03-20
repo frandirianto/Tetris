@@ -28,8 +28,7 @@ public class CurrentPiece extends Piece {
 	public void update() {
 		time += System.currentTimeMillis() - lastTime;
 		lastTime = System.currentTimeMillis();
-		// System.out.println(board.getBoard()[((cY - 70) / Board.BLOCKSIZE()) +
-		// 1][((cX - 20) / Board.BLOCKSIZE())]);
+		
 		if (board.isShiftPressed()) {
 			board.getPiece();
 		}
@@ -90,7 +89,6 @@ public class CurrentPiece extends Piece {
 				cX += dX;
 		}
 	}
-	// System.out.println(cX + " " + cY);
 
 	public void rotate() {
 		int[][] rotatedMatrix = null;
@@ -114,14 +112,8 @@ public class CurrentPiece extends Piece {
 						return;
 					}
 				}
-		// System.out.println(rotatedMatrix.length + " " + rotatedMatrix[0].length);
-		// System.out.println(cX + " " + cY);
 
 		coords = rotatedMatrix;
-		// System.out.println(coords[0].length * Board.BLOCKSIZE() + cX + " " + cY +
-		// coords.length *
-		// Board.BLOCKSIZE());
-
 	}
 
 	private int[][] getTranspose(int[][] matrix) {
